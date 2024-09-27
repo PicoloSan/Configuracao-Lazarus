@@ -1,0 +1,8 @@
+{
+  "usr" : "usuario",
+  "pwd" : "senha",
+  "file" : "c:/pasta/planilha.xlsx",
+  "sheet" : "Plan1",
+  "log" : "justificar.log",
+  "column" : "D"
+}
