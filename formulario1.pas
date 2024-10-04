@@ -14,19 +14,26 @@ type
 
   TForm1 = class(TForm)
     BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
     Edit1: TEdit;
     Edit2: TEdit;
     Edit3: TEdit;
     Edit4: TEdit;
     Edit5: TEdit;
     Edit6: TEdit;
+    Edit7: TEdit;
+    Edit8: TEdit;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    OpenDialog1: TOpenDialog;
     procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     function LerArquivoTexto(NomeArquivo: String): String;
     procedure EscreverArquivoTexto(NomeArquivo, Conteudo: String);
@@ -63,6 +70,8 @@ begin
   Edit4.Text := JsonObject.Get('sheet', '');
   Edit5.Text := JsonObject.Get('log', '');
   Edit6.Text := JsonObject.Get('column', '');
+  Edit7.Text := JsonObject.Get('URLlogin', '');
+  Edit8.Text := JsonObject.Get('URLos', '');
 end;
 
 procedure TForm1.BitBtn1Click(Sender: TObject);
@@ -75,8 +84,27 @@ begin
   JsonObject.Add('sheet', Edit4.Text);
   JsonObject.Add('log', Edit5.Text);
   JsonObject.Add('column', Edit6.Text);
+  JsonObject.Add('URLlogin', Edit7.Text);
+  JsonObject.Add('URLos', Edit8.Text);
   JSONString := JsonObject.FormatJSON();
   EscreverArquivoTexto('justificar.json', JSONString);
+  MessageDlg('Informação', 'Configuração salva com sucesso!', mtInformation, [mbOK], 0);
+end;
+
+procedure TForm1.BitBtn2Click(Sender: TObject);
+var
+  CaminhoArquivo: string;
+begin
+  OpenDialog1 := TOpenDialog.Create(nil);
+  try
+    if OpenDialog1.Execute then
+    begin
+      CaminhoArquivo := OpenDialog1.FileName;
+      Edit3.Text := StringReplace(CaminhoArquivo, '\', '/', [rfReplaceAll]);
+    end;
+  finally
+    OpenDialog1.Free;
+  end;
 end;
 
 function TForm1.LerArquivoTexto(NomeArquivo: String): String;

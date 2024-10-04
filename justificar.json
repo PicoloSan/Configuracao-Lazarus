@@ -4,5 +4,7 @@
   "file" : "c:/pasta/planilha.xlsx",
   "sheet" : "Plan1",
   "log" : "justificar.log",
-  "column" : "D"
+  "column" : "D",
+  "URLlogin" : "http://localhost/login",
+  "URLos" : "http://localhost/os"
 }

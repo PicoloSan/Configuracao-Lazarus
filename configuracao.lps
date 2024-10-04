@@ -12,7 +12,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="22"/>
       </Unit>
       <Unit>
         <Filename Value="formulario1.pas"/>
@@ -22,8 +22,9 @@
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="33"/>
-        <UsageCount Value="21"/>
+        <TopLine Value="78"/>
+        <CursorPos X="87" Y="93"/>
+        <UsageCount Value="22"/>
       </Unit>
     </Units>
     <General>
