@@ -1,8 +1,0 @@
-.gitignore
-
-# arquivos binarios e da maquina local
-configuracao.exe
-configurar.exe
-
-# Diretorios auxiliares
-_compacta.bat
