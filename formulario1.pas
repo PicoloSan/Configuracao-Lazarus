@@ -6,25 +6,26 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons,
-  ExtCtrls, ShellApi, fpjson, jsonparser;
+  ExtCtrls, CustomDrawnControls, DBCtrls, ShellApi, fpjson, jsonparser;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
-    BitBtn1: TBitBtn;
-    BitBtn2: TBitBtn;
-    BitBtn3: TBitBtn;
-    BitBtn4: TBitBtn;
-    Edit1: TEdit;
+    CDButton1: TCDButton;
+    CDButton2: TCDButton;
+    CDButton3: TCDButton;
+    CDButton4: TCDButton;
+    CDButton5: TCDButton;
     Edit2: TEdit;
-    Edit3: TEdit;
-    Edit4: TEdit;
     Edit5: TEdit;
-    Edit6: TEdit;
     Edit7: TEdit;
     Edit8: TEdit;
+    Edit4: TEdit;
+    Edit3: TEdit;
+    Edit6: TEdit;
+    Edit1: TEdit;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
@@ -35,17 +36,17 @@ type
     Label8: TLabel;
     OpenDialog1: TOpenDialog;
     TrayIcon1: TTrayIcon;
-    procedure BitBtn1Click(Sender: TObject);
-    procedure BitBtn2Click(Sender: TObject);
-    procedure BitBtn3Click(Sender: TObject);
-    procedure BitBtn4Click(Sender: TObject);
+    procedure CDButton1Click(Sender: TObject);
+    procedure CDButton2Click(Sender: TObject);
+    procedure CDButton3Click(Sender: TObject);
+    procedure CDButton4Click(Sender: TObject);
+    procedure CDButton5Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
-    function LerArquivoTexto(NomeArquivo: String): String;
-    procedure EscreverArquivoTexto(NomeArquivo, Conteudo: String);
     procedure TrayIcon1DblClick(Sender: TObject);
   private
-
+    function LerArquivoTexto(NomeArquivo: String): String;
+    procedure EscreverArquivoTexto(NomeArquivo, Conteudo: String);
   public
 
   end;
@@ -81,7 +82,7 @@ begin
   Edit8.Text := JsonObject.Get('URLos', '');
 end;
 
-procedure TForm1.BitBtn1Click(Sender: TObject);
+procedure TForm1.CDButton1Click(Sender: TObject);
 begin
   // Converter os dados para JSON
   JsonObject := TJSONObject.Create;
@@ -98,23 +99,7 @@ begin
   MessageDlg('Informação', 'Configuração salva com sucesso!', mtInformation, [mbOK], 0);
 end;
 
-procedure TForm1.BitBtn2Click(Sender: TObject);
-var
-  CaminhoArquivo: string;
-begin
-  OpenDialog1 := TOpenDialog.Create(nil);
-  try
-    if OpenDialog1.Execute then
-    begin
-      CaminhoArquivo := OpenDialog1.FileName;
-      Edit3.Text := StringReplace(CaminhoArquivo, '\', '/', [rfReplaceAll]);
-    end;
-  finally
-    OpenDialog1.Free;
-  end;
-end;
-
-procedure TForm1.BitBtn3Click(Sender: TObject);
+procedure TForm1.CDButton2Click(Sender: TObject);
 var
   AppDir, ProgramPath : String;
 begin
@@ -129,12 +114,39 @@ begin
   ShellExecute(0, 'open', PChar(ProgramPath), '', '', 1);
 end;
 
-procedure TForm1.BitBtn4Click(Sender: TObject);
+procedure TForm1.CDButton3Click(Sender: TObject);
 begin
   // Minimize to tray when the button is clicked
   TrayIcon1.Visible := True;
   // Application.Minimize;
   Self.Hide; // Esconde o formulário da barra de tarefas
+end;
+
+procedure TForm1.CDButton4Click(Sender: TObject);
+var
+  caminhoCompleto: string;
+begin
+  // Obtém o caminho completo do arquivo no mesmo diretório que o executável
+  caminhoCompleto := ExtractFilePath(Application.ExeName) + 'justificar.log';
+
+  // Abre o Bloco de Notas com o arquivo especificado
+  ShellExecute(0, 'open', 'notepad.exe', PChar(caminhoCompleto), nil, 1);
+end;
+
+procedure TForm1.CDButton5Click(Sender: TObject);
+var
+  CaminhoArquivo: string;
+begin
+  OpenDialog1 := TOpenDialog.Create(nil);
+  try
+    if OpenDialog1.Execute then
+    begin
+      CaminhoArquivo := OpenDialog1.FileName;
+      Edit3.Text := StringReplace(CaminhoArquivo, '\', '/', [rfReplaceAll]);
+    end;
+  finally
+    OpenDialog1.Free;
+  end;
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
